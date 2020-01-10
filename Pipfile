@@ -1,0 +1,35 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+pytest = "*"
+
+[packages]
+djangorestframework = "*"
+django-rest-auth = "*"
+django-allauth = "*"
+django = "==2.2.7"
+django-cors-headers = "*"
+django-debug-toolbar = "*"
+autopep8 = "*"
+python-autopep8 = "*"
+django-baton = "*"
+update = "*"
+django-autocomplete-light = "*"
+django-crispy-forms = "*"
+easy-thumbnails = "*"
+django-image-cropping = "*"
+djangoajax = "*"
+pillow = "*"
+django-imagekit = "*"
+1-5-6 = {git = "https://github.com/otto-torino/django-baton"}
+django-filter = "*"
+pytest-django = "*"
+mysqlclient = "*"
+python-decouple = "*"
+
+[requires]
+python_version = "3.7"
