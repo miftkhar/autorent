@@ -40,4 +40,5 @@ media
 
 *.md
 .vscode
-
+.Pipfile
+Pipfile.lock
