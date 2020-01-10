@@ -6,6 +6,9 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 pytest = "*"
+autopep8 = "*"
+python-autopep8 = "*"
+django-debug-toolbar = "*"
 
 [packages]
 djangorestframework = "*"
@@ -13,9 +16,6 @@ django-rest-auth = "*"
 django-allauth = "*"
 django = "==2.2.7"
 django-cors-headers = "*"
-django-debug-toolbar = "*"
-autopep8 = "*"
-python-autopep8 = "*"
 django-baton = "*"
 update = "*"
 django-autocomplete-light = "*"
