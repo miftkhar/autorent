@@ -46,4 +46,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
-SECRET_KEY = '71&9*n_egoick%w+dv*1zaf879u^^!uy5e7waib$qoje*y6c_@'
+SECRET_KEY = '31&9*n_egoick%w+dv*1azf879u^^!uy4e9waib$qoje*y6c_@'
