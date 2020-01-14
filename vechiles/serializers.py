@@ -16,9 +16,11 @@ class StateSerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
+    state_name = serializers.ReadOnlyField(source='state.name')
+
     class Meta:
         model = models.City
-        fields = ('name', 'state')
+        fields = ('id', 'name', 'state_name')
 
 
 class LocationSerializer(serializers.ModelSerializer):
