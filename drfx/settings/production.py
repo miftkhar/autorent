@@ -1,5 +1,5 @@
 from .base import *
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '165.22.254.232']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '165.22.254.232', '58.65.176.42']
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
