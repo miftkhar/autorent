@@ -230,33 +230,3 @@ TIME_INPUT_FORMATS = ['%I:%M %p']
 IMAGE_CROPPING_JQUERY_URL = None
 
 CORS_ORIGIN_ALLOW_ALL = True
-#CORS_ALLOW_CREDENTIALS = False
-
-# CORS_ORIGIN_WHITELIST = [
-#     'http://165.22.254.232:9000',
-# ]
-# CORS_ORIGIN_REGEX_WHITELIST = [
-#     'http://165.22.254.232:9000',
-# ]
-
-CORS_REPLACE_HTTPS_REFERER = True
-
-
-CORS_ALLOW_HEADERS = (
-    'x-requested-with',
-    'content-type',
-    'accept',
-    'origin',
-    'authorization',
-    'x-csrftoken',
-    'accept-encoding'
-)
-
-CORS_ALLOW_METHODS = (
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-)
