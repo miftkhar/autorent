@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_filters',
     'treebeard',
-
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -86,11 +85,11 @@ MIDDLEWARE = [
 ]
 
 
-CSP_DEFAULT_SRC = ("'self'", 'http://165.22.254.232:9000/')
-CSP_STYLE_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_IMG_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'",)
+CSP_DEFAULT_SRC = ("'none'",)
+CSP_STYLE_SRC = ("'none'",)
+CSP_SCRIPT_SRC = ("'none'",)
+CSP_IMG_SRC = ("'none'",)
+CSP_FONT_SRC = ("'none'",)
 
 
 ROOT_URLCONF = 'drfx.urls'
