@@ -49,4 +49,4 @@ EMAIL_USE_TLS = True
 SECRET_KEY = '31&9*n_egoick%w+dv*1azf879u^^!uy4e9waib$qoje*y6c_@'
 
 STATIC_ROOT = '/static/'
-MEDIA_URL = '/static/'
+MEDIA_URL = '/media/'
