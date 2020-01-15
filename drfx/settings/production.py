@@ -48,7 +48,7 @@ EMAIL_USE_TLS = True
 
 SECRET_KEY = '31&9*n_egoick%w+dv*1azf879u^^!uy4e9waib$qoje*y6c_@'
 
-STATIC_ROOT = "/home/rentacar/autorent/static/"
+STATIC_ROOT = "/home/rentacar/autorent/"
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
