@@ -167,51 +167,51 @@ REST_FRAMEWORK = {
         ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
-# BATON = {
-#     'SITE_HEADER': 'Rent A Car',
-#     'SITE_TITLE': 'Rent A Car System',
-#     'INDEX_TITLE': 'Site administration',
-#     'SUPPORT_HREF': '',
-#     'COPYRIGHT': 'copyright © 2017 ',  # noqa
-#     'POWERED_BY': '',
-#     'CONFIRM_UNSAVED_CHANGES': True,
-#     'SHOW_MULTIPART_UPLOADING': True,
-#     'ENABLE_IMAGES_PREVIEW': True,
-#     'MENU': (
-#         {'type': 'title', 'label': 'main', 'apps': ('auth', )},
-#         {
-#             'type': 'app',
-#             'name': 'vechiles',
-#             'label': 'Car',
-#             'icon': 'fa fa-car',
-#             # 'models': (
-#             #     {
-#             #         'name': 'user',
-#             #         'label': 'Users'
-#             #     },
-#             #     {
-#             #         'name': 'vechiles',
-#             #         'label': 'Vehicles'
-#             #     },
-#             # )
-#         },
-#         {'type': 'title', 'label': 'Contents', 'apps': ('flatpages', )},
-#         {'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages'},
-#         {'type': 'free', 'label': 'Users', 'url': '/admin/users/customuser/',
-#             # 'perms': ('flatpages.add_flatpage', 'auth.change_user')
-#         },
-#         # {'type': 'free', 'label': 'My parent voice', 'children': [
-#         #     {'type': 'model', 'label': 'A Model', 'name': 'mymodelname',
-#         #         'app': 'myapp', 'icon': 'fa fa-gavel'},
-#         #     {'type': 'free', 'label': 'Another custom link',
-#         #         'url': 'http://www.google.it'},
-#         # ]},
-#     ),
-#     # 'ANALYTICS': {
-#     #     'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
-#     #     'VIEW_ID': '12345678',
-#     # }
-# }
+BATON = {
+    'SITE_HEADER': 'Rent A Car',
+    'SITE_TITLE': 'Rent A Car System',
+    'INDEX_TITLE': 'Site administration',
+    'SUPPORT_HREF': '',
+    'COPYRIGHT': 'copyright © 2017 ',  # noqa
+    'POWERED_BY': '',
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'SHOW_MULTIPART_UPLOADING': True,
+    'ENABLE_IMAGES_PREVIEW': True,
+    'MENU': (
+        {'type': 'title', 'label': 'main', 'apps': ('auth', )},
+        {
+            'type': 'app',
+            'name': 'vechiles',
+            'label': 'Car',
+            'icon': 'fa fa-car',
+            # 'models': (
+            #     {
+            #         'name': 'user',
+            #         'label': 'Users'
+            #     },
+            #     {
+            #         'name': 'vechiles',
+            #         'label': 'Vehicles'
+            #     },
+            # )
+        },
+        {'type': 'title', 'label': 'Contents', 'apps': ('flatpages', )},
+        {'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages'},
+        {'type': 'free', 'label': 'Users', 'url': '/admin/users/customuser/',
+            # 'perms': ('flatpages.add_flatpage', 'auth.change_user')
+        },
+        # {'type': 'free', 'label': 'My parent voice', 'children': [
+        #     {'type': 'model', 'label': 'A Model', 'name': 'mymodelname',
+        #         'app': 'myapp', 'icon': 'fa fa-gavel'},
+        #     {'type': 'free', 'label': 'Another custom link',
+        #         'url': 'http://www.google.it'},
+        # ]},
+    ),
+    # 'ANALYTICS': {
+    #     'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
+    #     'VIEW_ID': '12345678',
+    # }
+}
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Django_debug_toolbar settings
