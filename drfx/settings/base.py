@@ -20,7 +20,7 @@ DEBUG = config('DEBUG', cast=bool)
 #     os.path.join(BASE_DIR, "static"),
 # )
 
-STATIC_ROOT = 'static/'
+
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
