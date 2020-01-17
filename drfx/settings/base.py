@@ -85,7 +85,7 @@ MIDDLEWARE = [
 ]
 
 
-CSP_DEFAULT_SRC = ("'self'", '165.22.254.232:9000',)
+CSP_DEFAULT_SRC = ("'self'", 'unsafe-inline', 'api.autorent.pk:9000',)
 CSP_STYLE_SRC = ("'self'", 'unsafe-inline', 'api.autorent.pk:9000',)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'",)
