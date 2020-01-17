@@ -85,7 +85,7 @@ MIDDLEWARE = [
 ]
 
 
-CSP_DEFAULT_SRC = ("'self'", 'http://165.22.254.232:9000/',)
+CSP_DEFAULT_SRC = ("'self'", 'http://165.22.254.232:9000',)
 CSP_STYLE_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'",)
@@ -225,7 +225,6 @@ DATETIME_FORMAT = 'd/m/Y H:i:s'
 DATE_FORMAT = "d/m/Y"
 
 TIME_INPUT_FORMATS = ['%I:%M %p']
-
 
 IMAGE_CROPPING_JQUERY_URL = None
 
