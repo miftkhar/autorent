@@ -56,7 +56,7 @@ MEDIA_ROOT = "/home/rentacar/autorent/media/"
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static/"),
     '/home/rentacar/autorent/static/',
     '/home/rentacar/autorent/',
 ]
