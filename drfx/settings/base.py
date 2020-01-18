@@ -85,9 +85,9 @@ MIDDLEWARE = [
 ]
 
 
-CSP_DEFAULT_SRC = ("'self'", 'unsafe-inline', 'api.autorent.pk:9000',)
-CSP_STYLE_SRC = ("'self'", 'unsafe-inline', 'api.autorent.pk:9000',)
-CSP_SCRIPT_SRC = ("'self'",)
+CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
 CSP_IMG_SRC = ("'self'",)
 CSP_FONT_SRC = ("'self'",)
 CSP_CONNECT_SRC = ("'self'",)
