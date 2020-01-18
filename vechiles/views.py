@@ -28,14 +28,17 @@ class StateListView(generics.ListCreateAPIView):
 
 class CityListView(generics.ListCreateAPIView):
     #queryset = models.City.objects.all()
+    queryset = models.City.objects.all()
     serializer_class = serializers.CitySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ('name', 'id', 'state__id', 'state__name')
 
-    def get_queryset(self):
-        queryset = models.City.objects.all()
-        state = self.request.query_params.get('state', None)
-        if state is not None:
-            queryset = queryset.filter(state__name__contains=state)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = models.City.objects.all()
+    #     state = self.request.query_params.get('state', None)
+    #     if state is not None:
+    #         queryset = queryset.filter(state__name__contains=state)
+    #     return queryset
 
 
 class LocationListView(generics.ListCreateAPIView):
