@@ -199,7 +199,7 @@ class FeatureAdmin(admin.ModelAdmin):
 
 class InlineImage(admin.TabularInline):
     model = models.Image
-    list_display = ('name', 'title', 'image_thumbnail',)
+    list_display = ('name', 'title', 'admin_thumbnail',)
     exclude = ('date_added', 'date_modified',)
     admin_thumbnail = AdminThumbnail(image_field='image_100_50')
     readonly_fields = ('admin_thumbnail', )
