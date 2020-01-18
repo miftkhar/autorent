@@ -316,7 +316,7 @@ class Image(models.Model):
         db_table = 'image'
 
     def __str__(self):
-        return self.name
+        return str(self.name) if self.name else ''
 
 
 class CarFeature(models.Model):
