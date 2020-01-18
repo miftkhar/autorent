@@ -53,7 +53,7 @@ STATIC_URL = '/static/'
 
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = "/home/rentacar/autorent/"
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://api.autorent.pk:9000/media/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
