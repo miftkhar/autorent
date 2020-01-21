@@ -202,7 +202,17 @@ class InlineImage(admin.TabularInline):
     list_display = ('name', 'title', 'admin_thumbnail',)
     exclude = ('date_added', 'date_modified',)
     admin_thumbnail = AdminThumbnail(image_field='image_100_50')
-    readonly_fields = ('admin_thumbnail', )
+    admin_thumbnail.short_description = 'Image'
+    readonly_fields = ('date_added', 'date_modified',)
+
+    @mark_safe
+    def image_tag(self, obj):
+        if obj.image_file:
+            return format_html('<img src="{}" />'.format(obj.image_file.url))
+        else:
+            return 'No_image'
+
+    image_tag.short_description = 'Image'
 
 
 @admin.register(models.Car)
