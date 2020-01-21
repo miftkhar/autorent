@@ -6,6 +6,8 @@ INSTALLED_APPS += [
     'debug_toolbar',
 ]
 
+STATIC_ROOT = 'static/'
+
 MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
