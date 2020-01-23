@@ -7,6 +7,7 @@ class CustomUser(AbstractUser):
 
     username = None
     email = models.EmailField(unique=True)
+    password = models.CharField(blank=False, max_length=128)
     verified = models.IntegerField(blank=True, null=True)
     activated = models.BooleanField(blank=True, null=True)
     first_name = models.CharField(max_length=50, blank=True, null=True)

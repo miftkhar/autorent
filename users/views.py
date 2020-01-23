@@ -6,7 +6,7 @@ from . import serializers
 
 class UserListView(generics.ListCreateAPIView):
     queryset = models.CustomUser.objects.all()
-    serializer_class = serializers.CustomUserDetailsSerializer
+    serializer_class = serializers.CustomRegisterSerializer
 
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
