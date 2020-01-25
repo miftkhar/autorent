@@ -261,7 +261,8 @@ class Car(models.Model):
     bodytype = models.ForeignKey('BodyType', on_delete=models.PROTECT)
     transmission = models.ForeignKey('Transmission', on_delete=models.PROTECT)
     enginetype = models.ForeignKey('EngineType', on_delete=models.PROTECT)
-    registration_city = models.ForeignKey(City, on_delete=models.PROTECT)
+    registration_city = models.ForeignKey(
+        City, on_delete=models.PROTECT, related_name='car')
     location = models.ForeignKey(
         'Location', on_delete=models.PROTECT, blank=True, null=True)
     features = models.ManyToManyField(Feature, through='CarFeature')

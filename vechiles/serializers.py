@@ -16,11 +16,20 @@ class StateSerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
+
     state_name = serializers.ReadOnlyField(source='state.name')
+
+    #car = serializers.SerializerMethodField(read_only=True)
+
+    total_car = serializers.SerializerMethodField(read_only=True)
+
+    def get_total_car(self, obj):
+        # change 'car' with corresponding "related_name" value
+        return obj.car.count()
 
     class Meta:
         model = models.City
-        fields = ('id', 'name', 'state_name')
+        fields = ('id', 'name', 'state_name', 'total_car')
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -75,7 +84,7 @@ class FeatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Feature
-        fields = ('name', 'category_name', 'featurecol')
+        fields = ('name', 'category_name',)
 
 
 class VersionSerializer(serializers.ModelSerializer):
@@ -84,7 +93,7 @@ class VersionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Version
-        fields = ('name', 'model_name', 'make_name', 'year')
+        fields = ('name', 'model', 'model_name', 'make_name', 'year')
 
 
 class VModelSerializer(serializers.ModelSerializer):
@@ -121,7 +130,7 @@ class CarSerializer(serializers.ModelSerializer):
     #feature = CarFeatureSerializer(required=False, many=True)
     carfeatures = CarFeatureSerializer(
         source='carfeature_set', many=True, read_only=True)
-    registration_city = serializers.CharField(source='registration_city.name')
+    #registration_city = serializers.CharField(source='registration_city.name')
     #features = serializers.ManyRelatedField(source='features.name')
 
     class Meta:

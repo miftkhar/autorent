@@ -1,4 +1,6 @@
-from django_filters.rest_framework import DjangoFilterBackend
+#from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
+
 from django.urls import reverse, resolve
 from rest_framework import generics
 from rest_framework.decorators import action
@@ -12,7 +14,7 @@ from . import serializers
 class CountryListView(generics.ListCreateAPIView):
     queryset = models.Country.objects.all()
     serializer_class = serializers.CountrySerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ('name',)
 
 
@@ -27,10 +29,11 @@ class StateListView(generics.ListCreateAPIView):
 
 
 class CityListView(generics.ListCreateAPIView):
-    #queryset = models.City.objects.all()
-    queryset = models.City.objects.all()
+
+    queryset = models.City.objects.all().prefetch_related('car', 'state')
+
     serializer_class = serializers.CitySerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ('name', 'id', 'state__id', 'state__name')
 
     # def get_queryset(self):
@@ -83,7 +86,7 @@ class MakeListView(generics.ListCreateAPIView):
     serializer_class = serializers.MakeSerializer
 
     def get_queryset(self):
-        queryset = models.Make.objects.all()
+        queryset = models.Make.objects.all().prefetch_related('category')
         cat = self.request.query_params.get('cat', None)
         if cat is not None:
             queryset = queryset.filter(category__name__contains=cat)
@@ -95,7 +98,7 @@ class VModelListView(generics.ListCreateAPIView):
     serializer_class = serializers.VModelSerializer
 
     def get_queryset(self):
-        queryset = models.VModel.objects.all()
+        queryset = models.VModel.objects.all().prefetch_related('make')
         make = self.request.query_params.get('make', None)
         if make is not None:
             queryset = queryset.filter(make__name__contains=make)
@@ -114,24 +117,40 @@ class FeatureListView(generics.ListCreateAPIView):
         return queryset
 
 
+class VersionFilter(filters.FilterSet):
+    #min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
+    #max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
+    model_name = filters.CharFilter(
+        field_name='model__name', label="Search by model name")
+    make_name = filters.CharFilter(
+        field_name='model__make__name', lookup_expr='icontains', label="Search by make name")
+
+    class Meta:
+        model = models.Version
+        fields = ['id', 'model', 'model_name', 'make_name']
+
+
 class VersionListView(generics.ListCreateAPIView):
 
     serializer_class = serializers.VersionSerializer
-    from django.core.mail import send_mail
+    queryset = models.Version.objects.all().prefetch_related('model', 'model__make')
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = VersionFilter
+    # from django.core.mail import send_mail
 
-    send_mail('subject', 'body of the message',
-              'ifyraj@gmail.com', ['ifyraj@gmail.com', ])
+    # send_mail('subject', 'body of the message',
+    #           'ifyraj@gmail.com', ['ifyraj@gmail.com', ])
     # print('iftkhar')
 
-    def get_queryset(self):
-        queryset = models.Version.objects.all()
-        vmodel = self.request.query_params.get('model', None)
-        make = self.request.query_params.get('make', None)
-        if vmodel is not None:
-            queryset = queryset.filter(model__name__contains=vmodel)
-        elif make is not None:
-            queryset = queryset.filter(model__make__name__contains=make)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = models.Version.objects.all().prefetch_related('model', 'model__make')
+    #     vmodel = self.request.query_params.get('model', None)
+    #     make = self.request.query_params.get('make', None)
+    #     if vmodel is not None:
+    #         queryset = queryset.filter(model__name__contains=vmodel)
+    #     elif make is not None:
+    #         queryset = queryset.filter(model__make__name__contains=make)
+    #     return queryset
 
 
 class CarDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -140,10 +159,10 @@ class CarDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CarListView(generics.ListCreateAPIView):
-    queryset = models.Car.objects.all()
+    queryset = models.Car.objects.all().prefetch_related('features')
     serializer_class = serializers.CarSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ('version', 'model', 'make',)
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = ('version', 'model',)
 
 
 class UserCarListView(generics.ListCreateAPIView):
