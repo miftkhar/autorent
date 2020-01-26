@@ -1,20 +1,20 @@
-#from django_filters.rest_framework import DjangoFilterBackend
-from django_filters import rest_framework as filters
+# from django_filters.rest_framework import DjangoFilterBackend
 
 from django.urls import reverse, resolve
 from rest_framework import generics
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.db import connection
+from django.db.models import Q
 from dal import autocomplete
 from . import models
 from . import serializers
+from . import filters
 
 
 class CountryListView(generics.ListCreateAPIView):
     queryset = models.Country.objects.all()
     serializer_class = serializers.CountrySerializer
-    filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ('name',)
 
 
@@ -30,12 +30,32 @@ class StateListView(generics.ListCreateAPIView):
 
 class CityListView(generics.ListCreateAPIView):
 
-    queryset = models.City.objects.all().prefetch_related('car', 'state')
-
+    #queryset = models.City.objects.all().prefetch_related('car', 'state')
     serializer_class = serializers.CitySerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    filterset_fields = ('name', 'id', 'state__id', 'state__name')
+    #filterset_fields = ('name', 'id', 'state__id', 'state__name')
 
+    def get_queryset(self):
+        queryset = models.City.objects.all().prefetch_related('car', 'state')
+        city = self.request.query_params.get('city', None)
+        make = self.request.query_params.get('make', None)
+        model = self.request.query_params.get('model', None)
+        version = self.request.query_params.get('version', None)
+        min_price = self.request.query_params.get('min_price', None)
+        max_price = self.request.query_params.get('max_price', None)
+        if city is not None:
+            queryset = queryset.filter(id=city)
+        if model is not None:
+            queryset = queryset.filter(car__model=model)
+        if make is not None:
+            queryset = queryset.filter(car__make=make)
+        if version is not None:
+            queryset = queryset.filter(car__version=version)
+        if min_price is not None:
+            queryset = queryset.filter(car__price__gte=min_price)
+        if max_price is not None:
+            queryset = queryset.filter(car__price__lte=max_price)
+            #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
+        return queryset
     # def get_queryset(self):
     #     queryset = models.City.objects.all()
     #     state = self.request.query_params.get('state', None)
@@ -117,25 +137,11 @@ class FeatureListView(generics.ListCreateAPIView):
         return queryset
 
 
-class VersionFilter(filters.FilterSet):
-    #min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
-    #max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
-    model_name = filters.CharFilter(
-        field_name='model__name', label="Search by model name")
-    make_name = filters.CharFilter(
-        field_name='model__make__name', lookup_expr='icontains', label="Search by make name")
-
-    class Meta:
-        model = models.Version
-        fields = ['id', 'model', 'model_name', 'make_name']
-
-
 class VersionListView(generics.ListCreateAPIView):
 
     serializer_class = serializers.VersionSerializer
     queryset = models.Version.objects.all().prefetch_related('model', 'model__make')
-    filter_backends = [filters.DjangoFilterBackend]
-    filterset_class = VersionFilter
+    filterset_class = filters.VersionFilter
     # from django.core.mail import send_mail
 
     # send_mail('subject', 'body of the message',
@@ -159,10 +165,29 @@ class CarDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CarListView(generics.ListCreateAPIView):
-    queryset = models.Car.objects.all().prefetch_related('features')
+    queryset = models.Car.objects.all()
     serializer_class = serializers.CarSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    filterset_fields = ('version', 'model',)
+    # filterset_class = filters.CarFilter
+
+    def get_queryset(self):
+        queryset = models.Car.objects.all()
+        make = self.request.query_params.get('make', None)
+        model = self.request.query_params.get('model', None)
+        version = self.request.query_params.get('version', None)
+        min_price = self.request.query_params.get('min_price', None)
+        max_price = self.request.query_params.get('max_price', None)
+        if model is not None:
+            queryset = queryset.filter(model=model)
+        if make is not None:
+            queryset = queryset.filter(make=make)
+        if version is not None:
+            queryset = queryset.filter(version=version)
+        if min_price is not None:
+            queryset = queryset.filter(price__gte=min_price)
+        if max_price is not None:
+            queryset = queryset.filter(price__lte=max_price)
+        #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
+        return queryset
 
 
 class UserCarListView(generics.ListCreateAPIView):
