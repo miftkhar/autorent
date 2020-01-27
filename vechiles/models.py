@@ -300,7 +300,7 @@ class Image(models.Model):
         'Car', null=True, related_name='images', on_delete=models.CASCADE, db_index=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
-    image_file = models.ImageField(upload_to='images/')
+    image_file = models.ImageField(upload_to='media/images/')
     image_100_50 = ImageSpecField(source='image_file',
                                   processors=[ResizeToFill(100, 50)],
                                   format='JPEG',
