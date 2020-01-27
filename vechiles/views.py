@@ -9,7 +9,7 @@ from django.db.models import Q
 from dal import autocomplete
 from . import models
 from . import serializers
-from . import filters
+#from . import filters
 
 
 class CountryListView(generics.ListCreateAPIView):
