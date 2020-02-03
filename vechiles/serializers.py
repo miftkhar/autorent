@@ -73,10 +73,15 @@ class TransmissionSerializer(serializers.ModelSerializer):
 
 class MakeSerializer(serializers.ModelSerializer):
     category_name = serializers.ReadOnlyField(source='category.name')
+    total_car = serializers.SerializerMethodField(read_only=True)
+
+    def get_total_car(self, obj):
+        # change 'car' with corresponding "related_name" value
+        return obj.car.count()
 
     class Meta:
         model = models.Make
-        fields = ('name', 'category_name')
+        fields = ('id', 'name', 'category_name', 'total_car')
 
 
 class FeatureSerializer(serializers.ModelSerializer):
@@ -90,18 +95,29 @@ class FeatureSerializer(serializers.ModelSerializer):
 class VersionSerializer(serializers.ModelSerializer):
     model_name = serializers.ReadOnlyField(source='model.name')
     make_name = serializers.ReadOnlyField(source='model.make.name')
+    total_car = serializers.SerializerMethodField(read_only=True)
+
+    def get_total_car(self, obj):
+        # change 'car' with corresponding "related_name" value
+        return obj.car.count()
 
     class Meta:
         model = models.Version
-        fields = ('name', 'model', 'model_name', 'make_name', 'year')
+        fields = ('id', 'name', 'model', 'model_name',
+                  'make_name', 'year', 'total_car')
 
 
 class VModelSerializer(serializers.ModelSerializer):
     make_name = serializers.ReadOnlyField(source='make.name')
+    total_car = serializers.SerializerMethodField(read_only=True)
+
+    def get_total_car(self, obj):
+        # change 'car' with corresponding "related_name" value
+        return obj.car.count()
 
     class Meta:
         model = models.VModel
-        fields = ('name', 'make_name', 'is_popular')
+        fields = ('id', 'name', 'make_name', 'is_popular', 'total_car')
 
 
 class ImageSerializer(serializers.ModelSerializer):

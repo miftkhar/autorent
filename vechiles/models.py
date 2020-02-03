@@ -252,9 +252,11 @@ class Car(models.Model):
     )
 
     id = models.BigAutoField(primary_key=True)
-    version = models.ForeignKey('Version', on_delete=models.PROTECT)
-    model = models.ForeignKey('VModel', on_delete=models.PROTECT)
-    make = models.ForeignKey('Make', on_delete=models.PROTECT)
+    version = models.ForeignKey('Version', on_delete=models.PROTECT, related_name='car')
+    model = models.ForeignKey(
+        'VModel', on_delete=models.PROTECT, related_name='car')
+    make = models.ForeignKey(
+        'Make', on_delete=models.PROTECT, related_name='car')
     user = models.ForeignKey('users.CustomUser', on_delete=models.PROTECT)
     bodycolor = models.ForeignKey(
         'BodyColor', verbose_name='Color', on_delete=models.PROTECT)
