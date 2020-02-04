@@ -142,7 +142,7 @@ class VersionListView(generics.ListCreateAPIView):
     serializer_class = serializers.VersionSerializer
     queryset = models.Version.objects.all().prefetch_related('model', 'model__make')
     filterset_class = filters.VersionFilter
-    # from django.core.mail import send_mail
+    from django.core.mail import send_mail
 
     # send_mail('subject', 'body of the message',
     #           'ifyraj@gmail.com', ['ifyraj@gmail.com', ])
@@ -171,11 +171,14 @@ class CarListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = models.Car.objects.all()
+        city = self.request.query_params.get('city', None)
         make = self.request.query_params.get('make', None)
         model = self.request.query_params.get('model', None)
         version = self.request.query_params.get('version', None)
         min_price = self.request.query_params.get('min_price', None)
         max_price = self.request.query_params.get('max_price', None)
+        if city is not None:
+            queryset = queryset.filter(registration_city=city)
         if model is not None:
             queryset = queryset.filter(model=model)
         if make is not None:
