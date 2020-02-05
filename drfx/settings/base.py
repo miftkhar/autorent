@@ -90,7 +90,7 @@ MIDDLEWARE = [
 
 ]
 
-
+CSP_EXCLUDE_URL_PREFIXES = ("'self'",)
 CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
 CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
