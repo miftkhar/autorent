@@ -39,14 +39,6 @@ DATABASES = {
     }
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'postmaster@sandboxdbeda9cad0a946e8889a94bc17e72a42.mailgun.org'
-EMAIL_HOST_PASSWORD = 'b60ec0e7ea5597769803ab1492383829-2b4c5a6c-254441c0'
-#DEFAULT_FROM_EMAIL = 'donotreply@kamiltrojnar.pl'
-EMAIL_USE_TLS = True
-
 SECRET_KEY = '31&9*n_egoick%w+dv*1azf879u^^!uy4e9waib$qoje*y6c_@'
 
 #STATIC_ROOT = "/home/rentacar/autorent/static/"
@@ -61,3 +53,13 @@ STATICFILES_DIRS = [
     '/home/rentacar/autorent/static/',
     '/home/rentacar/autorent/',
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sg2plcpnl0122.prod.sin2.secureserver.net'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'info@autorent.pk'
+EMAIL_HOST_PASSWORD = 'XXXu5454'
+DEFAULT_FROM_EMAIL = 'info@autorent.pk'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

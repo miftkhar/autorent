@@ -4,7 +4,9 @@ from decouple import config
 # pip install -e git+git://github.com/oscarmlage/django-cruds-adminlte/@0.0.17+git.082ac1b#egg=django-cruds-adminlte
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+# BASE_DIR = C:\Users\Iftkhar\projects\django-apps\mycarapp
 # print(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
@@ -21,7 +23,7 @@ DEBUG = config('DEBUG', cast=bool)
 # )
 
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 
@@ -45,21 +47,24 @@ INSTALLED_APPS = [
 
     'dal',
     'dal_select2',
-    'imagekit',
-    'baton',
+    # 'imagekit',
+
     'api',
     'users',
     'vechiles',
+    'django_filters',
+    'treebeard',
+    'rest_framework',
+    # 'baton',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.sites',
-    'django_filters',
-    'treebeard',
+
+
     'corsheaders',
-    'rest_framework',
     'rest_framework.authtoken',
     'allauth',
     'allauth.account',
@@ -67,14 +72,14 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'django.contrib.staticfiles',
-    'baton.autodiscover',
+    # 'baton.autodiscover',
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'csp.middleware.CSPMiddleware',
+    # 'csp.middleware.CSPMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,13 +91,13 @@ MIDDLEWARE = [
 ]
 
 
-CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
-CSP_IMG_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'",)
-CSP_CONNECT_SRC = ("'self'",)
-CSP_WORKER_SRC = ("'self'",)
+# CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
+# CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
+# CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", 'http://api.autorent.pk:9000',)
+# CSP_IMG_SRC = ("'self'",)
+# CSP_FONT_SRC = ("'self'",)
+# CSP_CONNECT_SRC = ("'self'",)
+# CSP_WORKER_SRC = ("'self'",)
 
 
 ROOT_URLCONF = 'drfx.urls'
@@ -100,7 +105,7 @@ ROOT_URLCONF = 'drfx.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,14 +125,6 @@ WSGI_APPLICATION = 'drfx.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'incremental': True,
-    'root': {
-        'level': 'DEBUG',
-    },
-}
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -172,8 +169,12 @@ REST_FRAMEWORK = {
     # 'DEFAULT_RENDERER_CLASSES': (
     #     'rest_framework.renderers.JSONRenderer',
     # ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -186,51 +187,51 @@ REST_FRAMEWORK = {
 
 }
 
-BATON = {
-    'SITE_HEADER': 'Rent A Car',
-    'SITE_TITLE': 'Rent A Car System',
-    'INDEX_TITLE': 'Site administration',
-    'SUPPORT_HREF': '',
-    'COPYRIGHT': 'copyright © 2017 ',  # noqa
-    'POWERED_BY': '',
-    'CONFIRM_UNSAVED_CHANGES': True,
-    'SHOW_MULTIPART_UPLOADING': True,
-    'ENABLE_IMAGES_PREVIEW': True,
-    'MENU': (
-        {'type': 'title', 'label': 'main', 'apps': ('auth', )},
-        {
-            'type': 'app',
-            'name': 'vechiles',
-            'label': 'Car',
-            'icon': 'fa fa-car',
-            # 'models': (
-            #     {
-            #         'name': 'user',
-            #         'label': 'Users'
-            #     },
-            #     {
-            #         'name': 'vechiles',
-            #         'label': 'Vehicles'
-            #     },
-            # )
-        },
-        {'type': 'title', 'label': 'Contents', 'apps': ('flatpages', )},
-        {'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages'},
-        {'type': 'free', 'label': 'Users', 'url': '/admin/users/customuser/',
-            # 'perms': ('flatpages.add_flatpage', 'auth.change_user')
-        },
-        # {'type': 'free', 'label': 'My parent voice', 'children': [
-        #     {'type': 'model', 'label': 'A Model', 'name': 'mymodelname',
-        #         'app': 'myapp', 'icon': 'fa fa-gavel'},
-        #     {'type': 'free', 'label': 'Another custom link',
-        #         'url': 'http://www.google.it'},
-        # ]},
-    ),
-    # 'ANALYTICS': {
-    #     'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
-    #     'VIEW_ID': '12345678',
-    # }
-}
+# BATON = {
+#     'SITE_HEADER': 'Rent A Car',
+#     'SITE_TITLE': 'Rent A Car System',
+#     'INDEX_TITLE': 'Site administration',
+#     'SUPPORT_HREF': '',
+#     'COPYRIGHT': 'copyright © 2017 ',  # noqa
+#     'POWERED_BY': '',
+#     'CONFIRM_UNSAVED_CHANGES': True,
+#     'SHOW_MULTIPART_UPLOADING': True,
+#     'ENABLE_IMAGES_PREVIEW': True,
+#     'MENU': (
+#         {'type': 'title', 'label': 'main', 'apps': ('auth', )},
+#         {
+#             'type': 'app',
+#             'name': 'vechiles',
+#             'label': 'Car',
+#             'icon': 'fa fa-car',
+#             # 'models': (
+#             #     {
+#             #         'name': 'user',
+#             #         'label': 'Users'
+#             #     },
+#             #     {
+#             #         'name': 'vechiles',
+#             #         'label': 'Vehicles'
+#             #     },
+#             # )
+#         },
+#         {'type': 'title', 'label': 'Contents', 'apps': ('flatpages', )},
+#         {'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages'},
+#         {'type': 'free', 'label': 'Users', 'url': '/admin/users/customuser/',
+#             # 'perms': ('flatpages.add_flatpage', 'auth.change_user')
+#         },
+#         # {'type': 'free', 'label': 'My parent voice', 'children': [
+#         #     {'type': 'model', 'label': 'A Model', 'name': 'mymodelname',
+#         #         'app': 'myapp', 'icon': 'fa fa-gavel'},
+#         #     {'type': 'free', 'label': 'Another custom link',
+#         #         'url': 'http://www.google.it'},
+#         # ]},
+#     ),
+#     # 'ANALYTICS': {
+#     #     'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
+#     #     'VIEW_ID': '12345678',
+#     # }
+# }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Django_debug_toolbar settings
@@ -248,3 +249,5 @@ TIME_INPUT_FORMATS = ['%I:%M %p']
 IMAGE_CROPPING_JQUERY_URL = None
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+REST_SESSION_LOGIN = False
