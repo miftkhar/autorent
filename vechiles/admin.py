@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.template.response import TemplateResponse
+from django.urls import path
 from django.contrib.contenttypes.admin import GenericTabularInline
 
 from django.contrib.auth.models import Group
@@ -241,12 +243,11 @@ class CarAdmin(admin.ModelAdmin):
                        'transmission', 'enginetype', 'registration_city',
                        'title',  'price', 'condition', 'engine_capacity', 'is_active'
                        ),
-            'classes': ('baton-tabs-init', 'baton-tab-fs-other', 'baton-tab-inline-images', 'baton-tab-inline-carfeature', ),
-            'description': 'This is a description text'
+            # 'classes': ('baton-tabs-init', 'baton-tab-fs-other', 'baton-tab-inline-images', 'baton-tab-inline-carfeature', ),
 
         }),
-        ('Other Info', {
-            # 'classes': ('collapse',),
+        ('Other Info (Not required)', {
+            'classes': ('collapse',),
             'fields': (
                 'location',
                 'description',
@@ -256,13 +257,12 @@ class CarAdmin(admin.ModelAdmin):
                 'date_added',
                 'date_modified',
             ),
-            'classes': ('tab-fs-other', ),
         }),
     )
 
     class Media:
         js = (
-            'admin/stuff.js',
+            # 'admin/stuff.js',
         )
 
     # class Media:

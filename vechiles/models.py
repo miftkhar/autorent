@@ -252,7 +252,8 @@ class Car(models.Model):
     )
 
     id = models.BigAutoField(primary_key=True)
-    version = models.ForeignKey('Version', on_delete=models.PROTECT, related_name='car')
+    version = models.ForeignKey(
+        'Version', on_delete=models.PROTECT, related_name='car')
     model = models.ForeignKey(
         'VModel', on_delete=models.PROTECT, related_name='car')
     make = models.ForeignKey(
