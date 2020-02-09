@@ -336,7 +336,10 @@ class CarListView(generics.ListCreateAPIView):
     # filterset_class = filters.CarFilter
 
     def get_queryset(self):
-        queryset = models.Car.objects.all().prefetch_related('images', 'car_features','version')
+        queryset = models.Car.objects.select_related(
+            'version', 'model', 'make', 'bodycolor',
+            'bodytype', 'transmission', 'enginetype', 'registration_city',
+            'city', 'location',).prefetch_related('images', 'car_features',).all()
         city = self.request.query_params.get('city', None)
         make = self.request.query_params.get('make', None)
         model = self.request.query_params.get('model', None)

@@ -145,16 +145,42 @@ class CarFeatureSerializer(serializers.ModelSerializer):
 
 
 class CarSerializer(serializers.ModelSerializer):
-    #model_name = serializers.ReadOnlyField(source='model.name')
-    #make_name = serializers.ReadOnlyField(source='model.make.name')
+
+    version_name = serializers.ReadOnlyField(source='version.name')
+    model_name = serializers.ReadOnlyField(source='model.name')
+    make_name = serializers.ReadOnlyField(source='make.name')
+    city_name = serializers.ReadOnlyField(source='city.name')
+    bodycolor_name = serializers.ReadOnlyField(source='bodycolor.name')
+    bodytype_name = serializers.ReadOnlyField(source='bodytype.name')
+    transmission_name = serializers.ReadOnlyField(source='transmission.name')
+    enginetype_name = serializers.ReadOnlyField(source='enginetype.name')
+    registration_city_name = serializers.ReadOnlyField(
+        source='registration_city.name')
+    location_name = serializers.ReadOnlyField(source='location.name')
+
+    condition = serializers.CharField(source='get_condition_display')
     images = ImageSerializer(required=False, many=True)
     #feature = CarFeatureSerializer(required=False, many=True)
     carfeatures = CarFeatureSerializer(
-        source='carfeature_set', many=True, read_only=True)
+        source='car_features', many=True, read_only=True)
     #registration_city = serializers.CharField(source='registration_city.name')
     #features = serializers.ManyRelatedField(source='features.name')
 
     class Meta:
         model = models.Car
-        #fields = ('name', 'model_name', 'make_name', 'year')
-        fields = '__all__'
+        fields = ('title', 'description', 'price',
+                  'version', 'version_name',
+                  'model', 'model_name',
+                  'make', 'make_name',
+                  'city', 'city_name',
+                  'bodycolor', 'bodycolor_name',
+                  'bodytype', 'bodytype_name',
+                  'transmission', 'transmission_name',
+                  'enginetype', 'enginetype_name', 'engine_capacity',
+                  'registration_city', 'registration_city_name',
+                  'location', 'location_name',
+                  'mileage', 'condition',
+                  'is_featured', 'is_verified', 'is_with_driver_only', 'is_imported',
+                  'carfeatures', 'images',
+                  )
+        #fields = '__all__'
