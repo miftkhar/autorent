@@ -221,9 +221,9 @@ class MakeListView(generics.ListCreateAPIView):
             for i in city.split(','):
                 cityParams.append(int(i))
             if len(cityParams) > 1:
-                queryset = queryset.filter(car__cityCar__in=cityParams)
+                queryset = queryset.filter(car__city__in=cityParams)
             else:
-                queryset = queryset.filter(car__cityCar=city)
+                queryset = queryset.filter(car__city=city)
 
         if model is not None:
             for i in model.split(','):
