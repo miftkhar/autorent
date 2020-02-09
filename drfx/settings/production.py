@@ -1,5 +1,6 @@
 from .base import *
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'api.autorent.pk', '58.65.176.42']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
+                 'api.autorent.pk:9000', '58.65.176.42']
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -41,18 +42,18 @@ DATABASES = {
 
 SECRET_KEY = '31&9*n_egoick%w+dv*1azf879u^^!uy4e9waib$qoje*y6c_@'
 
-#STATIC_ROOT = "/home/rentacar/autorent/static/"
+STATIC_ROOT = "/home/rentacar/autorent/static/"
 STATIC_URL = 'http://api.autorent.pk:9000/static/'
 
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = "/home/rentacar/autorent/media/"
 MEDIA_URL = 'http://api.autorent.pk:9000/media/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
-    '/home/rentacar/autorent/static/',
-    '/home/rentacar/autorent/',
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static/"),
+#     '/home/rentacar/autorent/static/',
+#     '/home/rentacar/autorent/',
+# ]
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
