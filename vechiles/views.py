@@ -336,7 +336,7 @@ class CarListView(generics.ListCreateAPIView):
     # filterset_class = filters.CarFilter
 
     def get_queryset(self):
-        queryset = models.Car.objects.all()
+        queryset = models.Car.objects.all().prefetch_related('images', 'car_features','version')
         city = self.request.query_params.get('city', None)
         make = self.request.query_params.get('make', None)
         model = self.request.query_params.get('model', None)
@@ -354,9 +354,9 @@ class CarListView(generics.ListCreateAPIView):
             for i in city.split(','):
                 cityParams.append(int(i))
             if len(cityParams) > 1:
-                queryset = queryset.filter(registration_city__in=cityParams)
+                queryset = queryset.filter(city__in=cityParams)
             else:
-                queryset = queryset.filter(registration_city=city)
+                queryset = queryset.filter(city=city)
 
         if model is not None:
             for i in model.split(','):
