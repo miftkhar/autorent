@@ -265,7 +265,9 @@ class Car(models.Model):
     transmission = models.ForeignKey('Transmission', on_delete=models.PROTECT)
     enginetype = models.ForeignKey('EngineType', on_delete=models.PROTECT)
     registration_city = models.ForeignKey(
-        City, on_delete=models.PROTECT, related_name='car')
+        City, on_delete=models.PROTECT, related_name='car', default=1)
+    city = models.ForeignKey(
+        City, on_delete=models.PROTECT, related_name='carCity', default=1)
     location = models.ForeignKey(
         'Location', on_delete=models.PROTECT, blank=True, null=True)
     features = models.ManyToManyField(Feature, through='CarFeature')
@@ -279,6 +281,7 @@ class Car(models.Model):
     is_active = models.BooleanField(default=1)
     is_imported = models.BooleanField(default=0)
     is_featured = models.BooleanField(default=0)
+    is_verified = models.BooleanField(default=0)
     is_with_driver_only = models.BooleanField(default=0)
     date_added = models.DateField(default=datetime.now)
     date_modified = models.DateField(default=datetime.now)

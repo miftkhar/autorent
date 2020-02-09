@@ -240,7 +240,7 @@ class CarAdmin(admin.ModelAdmin):
         ('Required Info', {
             # 'description': "These fields are required.'make', 'model',",
             'fields': ('user', 'make', 'model', 'version', 'bodycolor', 'bodytype',
-                       'transmission', 'enginetype', 'registration_city',
+                       'transmission', 'enginetype', 'registration_city', 'city',
                        'title',  'price', 'condition', 'engine_capacity', 'is_active'
                        ),
             # 'classes': ('baton-tabs-init', 'baton-tab-fs-other', 'baton-tab-inline-images', 'baton-tab-inline-carfeature', ),
