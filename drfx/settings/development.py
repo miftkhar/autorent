@@ -1,6 +1,7 @@
 from .base import *
 DEBUG = True
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'api.autorent.pk:9001']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost',
+                 'api.autorent.pk:9001', '58.65.176.42']
 
 INSTALLED_APPS += [
     'debug_toolbar',
