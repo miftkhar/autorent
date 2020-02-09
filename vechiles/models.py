@@ -262,8 +262,10 @@ class Car(models.Model):
     bodycolor = models.ForeignKey(
         'BodyColor', verbose_name='Color', on_delete=models.PROTECT)
     bodytype = models.ForeignKey('BodyType', on_delete=models.PROTECT)
-    transmission = models.ForeignKey('Transmission', on_delete=models.PROTECT)
-    enginetype = models.ForeignKey('EngineType', on_delete=models.PROTECT)
+    transmission = models.ForeignKey(
+        'Transmission', on_delete=models.PROTECT, related_name='car')
+    enginetype = models.ForeignKey(
+        'EngineType', on_delete=models.PROTECT, related_name='car')
     registration_city = models.ForeignKey(
         City, on_delete=models.PROTECT, related_name='car', default=1)
     city = models.ForeignKey(
@@ -329,7 +331,7 @@ class Image(models.Model):
 class CarFeature(models.Model):
     id = models.AutoField(primary_key=True)
     car = models.ForeignKey(
-        Car, db_index=False, on_delete=models.PROTECT)
+        Car, db_index=False, on_delete=models.PROTECT, related_name='car_features')
     feature = models.ForeignKey(
         Feature, db_index=False, on_delete=models.PROTECT)
     date_added = models.DateField(default=datetime.now)
