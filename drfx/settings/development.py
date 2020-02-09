@@ -1,6 +1,6 @@
 from .base import *
 DEBUG = True
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'api.autorent.pk:9001']
 
 INSTALLED_APPS += [
     'debug_toolbar',
@@ -14,6 +14,8 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
+
+    # local mysql database settings
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': config('DB_NAME'),
@@ -25,6 +27,7 @@ DATABASES = {
     #         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
     #     }
     # }
+
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'autosale',
@@ -36,6 +39,7 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }
     }
+
 }
 
 
