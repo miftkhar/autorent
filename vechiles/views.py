@@ -103,11 +103,11 @@ class CityListView(generics.ListCreateAPIView):
                 queryset = queryset.filter(car__version=version)
 
         if min_price is not None:
-            #queryset = queryset.filter(car__price__gte=min_price)
-            queryset = queryset.filter(Q(car__price__gte=min_price))
+            queryset = queryset.filter(car__price__gte=min_price)
+            #queryset = queryset.filter(Q(car__price__gte=min_price))
         if max_price is not None:
-            #queryset = queryset.filter(car__price__lte=max_price)
-            queryset = queryset.filter(Q(car__price__lte=max_price))
+            queryset = queryset.filter(car__price__lte=max_price)
+            #queryset = queryset.filter(Q(car__price__lte=max_price))
             #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
         return queryset
 
