@@ -56,7 +56,8 @@ class CityListView(generics.ListCreateAPIView):
             return self.paginator.paginate_queryset(queryset, self.request, view=self)
 
     def get_queryset(self):
-        queryset = models.City.objects.all().prefetch_related('car', 'carCity', 'state')
+        queryset = models.City.objects.prefetch_related(
+            'carCity').select_related('state',).distinct()
         city = self.request.query_params.get('city', None)
         make = self.request.query_params.get('make', None)
         model = self.request.query_params.get('model', None)
@@ -82,17 +83,17 @@ class CityListView(generics.ListCreateAPIView):
             for i in model.split(','):
                 modalParams.append(int(i))
             if len(modalParams) > 1:
-                queryset = queryset.filter(car__model__in=modalParams)
+                queryset = queryset.filter(carCity__model__in=modalParams)
             else:
-                queryset = queryset.filter(car__model=model)
+                queryset = queryset.filter(carCity__model=model)
 
         if make is not None:
             for i in make.split(','):
                 makeParams.append(int(i))
             if len(makeParams) > 1:
-                queryset = queryset.filter(car__make__in=makeParams)
+                queryset = queryset.filter(carCity__make__in=makeParams)
             else:
-                queryset = queryset.filter(car__make=make)
+                queryset = queryset.filter(carCity__make=make)
 
         if version is not None:
             for i in version.split(','):
@@ -103,10 +104,10 @@ class CityListView(generics.ListCreateAPIView):
                 queryset = queryset.filter(car__version=version)
 
         if min_price is not None:
-            queryset = queryset.filter(car__price__gte=min_price)
+            queryset = queryset.filter(carCity__price__gte=min_price)
             #queryset = queryset.filter(Q(car__price__gte=min_price))
         if max_price is not None:
-            queryset = queryset.filter(car__price__lte=max_price)
+            queryset = queryset.filter(carCity__price__lte=max_price)
             #queryset = queryset.filter(Q(car__price__lte=max_price))
             #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
         return queryset
