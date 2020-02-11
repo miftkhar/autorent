@@ -182,5 +182,6 @@ class CarSerializer(serializers.ModelSerializer):
                   'mileage', 'condition',
                   'is_featured', 'is_verified', 'is_with_driver_only', 'is_imported',
                   'carfeatures', 'images',
+                  'date_added'
                   )
         #fields = '__all__'

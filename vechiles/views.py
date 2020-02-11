@@ -57,7 +57,7 @@ class CityListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = models.City.objects.prefetch_related(
-            'carCity').select_related('state',).distinct()
+            'carCity').select_related('state',)
         city = self.request.query_params.get('city', None)
         make = self.request.query_params.get('make', None)
         model = self.request.query_params.get('model', None)
@@ -110,6 +110,7 @@ class CityListView(generics.ListCreateAPIView):
             queryset = queryset.filter(carCity__price__lte=max_price)
             #queryset = queryset.filter(Q(car__price__lte=max_price))
             #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
+        queryset = queryset.filter(carCity__isnull=False).distinct()
         return queryset
 
     # def get_queryset(self):
@@ -257,6 +258,8 @@ class MakeListView(generics.ListCreateAPIView):
             #queryset = queryset.filter(car__price__lte=max_price)
             queryset = queryset.filter(Q(car__price__lte=max_price))
             #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
+
+        queryset = queryset.filter(car__isnull=False).distinct()
         return queryset
 
 
@@ -347,6 +350,7 @@ class CarListView(generics.ListCreateAPIView):
         version = self.request.query_params.get('version', None)
         min_price = self.request.query_params.get('min_price', None)
         max_price = self.request.query_params.get('max_price', None)
+        latest = self.request.query_params.get('latest', None)
 
         # create an empty list for parameters to be filters by
         cityParams = []
@@ -391,6 +395,9 @@ class CarListView(generics.ListCreateAPIView):
         if max_price is not None:
             queryset = queryset.filter(price__lte=max_price)
         #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
+
+        if latest is not None:
+            queryset = queryset.order_by('-date_added')
         return queryset
 
 
