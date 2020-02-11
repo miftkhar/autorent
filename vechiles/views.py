@@ -64,6 +64,7 @@ class CityListView(generics.ListCreateAPIView):
         version = self.request.query_params.get('version', None)
         min_price = self.request.query_params.get('min_price', None)
         max_price = self.request.query_params.get('max_price', None)
+        show_all = self.request.query_params.get('show_all', None)
 
         # create an empty list for parameters to be filters by
         cityParams = []
@@ -110,7 +111,9 @@ class CityListView(generics.ListCreateAPIView):
             queryset = queryset.filter(carCity__price__lte=max_price)
             #queryset = queryset.filter(Q(car__price__lte=max_price))
             #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
-        queryset = queryset.filter(carCity__isnull=False).distinct()
+
+        if show_all is None:
+            queryset = queryset.filter(carCity__isnull=False).distinct()
         return queryset
 
     # def get_queryset(self):
@@ -213,6 +216,8 @@ class MakeListView(generics.ListCreateAPIView):
         min_price = self.request.query_params.get('min_price', None)
         max_price = self.request.query_params.get('max_price', None)
 
+        show_all = self.request.query_params.get('show_all', None)
+
         # create an empty list for parameters to be filters by
         cityParams = []
         modalParams = []
@@ -259,7 +264,8 @@ class MakeListView(generics.ListCreateAPIView):
             queryset = queryset.filter(Q(car__price__lte=max_price))
             #queryset = models.Car.objects.filter(Q(model=336) or Q(make=5))
 
-        queryset = queryset.filter(car__isnull=False).distinct()
+        if show_all is None:
+            queryset = queryset.filter(car__isnull=False).distinct()
         return queryset
 
 
