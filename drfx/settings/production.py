@@ -1,6 +1,6 @@
 from .base import *
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
-                 'api.autorent.pk', '58.65.176.42']
+                 'api.autorent.pk', '165.22.254.232']
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
