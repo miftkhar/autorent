@@ -12,6 +12,12 @@ from . import serializers
 from . import filters
 
 
+class CarFeatureListView(generics.ListCreateAPIView):
+    queryset = models.CarFeature.objects.all()
+    serializer_class = serializers.CarFeatureSerializer
+    #filterset_fields = ('name',)
+
+
 class CountryListView(generics.ListCreateAPIView):
     queryset = models.Country.objects.all()
     serializer_class = serializers.CountrySerializer
@@ -424,7 +430,10 @@ class StateAutocomplete(autocomplete.Select2QuerySetView):
 
 class MakeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
+        print(self)
         qs = models.Make.objects.all()
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
         return qs
 
 
