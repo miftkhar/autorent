@@ -2,6 +2,7 @@ from . import views
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+#from cruds_adminlte.urls import crud_for_app
 
 urlpatterns = [
     path('country/<int:pk>/', views.CountryDetailView.as_view()),
@@ -16,7 +17,12 @@ urlpatterns = [
     path('bodytype/', views.BodyTypeListView.as_view()),
     path('bodycolor/', views.BodyColorListView.as_view()),
     path('feature/', views.FeatureListView.as_view()),
+    path('carfeature/', views.CarFeatureListView.as_view()),
     path('user-car/', views.UserCarListView.as_view(), name='user-car'),
+    path('user-car-image/', views.UserCarImageListView.as_view(),
+         name='user-car-image'),
+    path('user-car-feature/<int:pk>/', views.UserCarFeatureListView.as_view(),
+         name='user-car-feature'),
     path('car/', views.CarListView.as_view(), name='car'),
     path('car/<int:pk>/', views.CarDetailView.as_view(), name='car'),
     path('city-autocomplete/', views.CityAutocomplete.as_view(),

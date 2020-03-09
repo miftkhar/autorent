@@ -421,6 +421,31 @@ class UserCarListView(generics.ListCreateAPIView):
         user = self.request.user
         return models.Car.objects.filter(user=user)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class UserCarFeatureListView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.CarFeatureSerializer
+    permission_classes = (IsAuthenticated,)
+    #filterset_fields = ('name',)
+
+    def get_queryset(self):
+        user = self.request.user
+        return models.CarFeature.objects.filter()
+
+
+class UserCarImageListView(generics.ListCreateAPIView):
+    serializer_class = serializers.ImageSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.user
+        car_id = self.request.query_params.get('car_id', 0)
+        qs = models.Image.objects.filter(car__user=user)
+        qs = models.Image.objects.filter(car=car_id)
+        return qs
+
 
 class StateAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

@@ -86,6 +86,7 @@ class MakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Make
         fields = ('id', 'name', 'total_car',)
+        depth = 1
 
 
 class FeatureSerializer(serializers.ModelSerializer):
@@ -93,7 +94,7 @@ class FeatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Feature
-        fields = ('name', 'category_name',)
+        fields = ('id', 'name', 'category_name',)
 
 
 class VersionSerializer(serializers.ModelSerializer):
@@ -129,7 +130,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = '__all__'
+        fields = ('id', 'car', 'title', 'image_file',)
 
 
 class CarFeatureSerializer(serializers.ModelSerializer):
@@ -139,8 +140,7 @@ class CarFeatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.CarFeature
-        fields = '__all__'
-        fields = ('id', 'is_active', 'name',)
+        fields = ('id', 'is_active', 'name', 'car', 'feature')
         #depth = 1
 
 
@@ -149,20 +149,20 @@ class CarSerializer(serializers.ModelSerializer):
     version_name = serializers.ReadOnlyField(source='version.name')
     model_name = serializers.ReadOnlyField(source='model.name')
     make_name = serializers.ReadOnlyField(source='make.name')
-    city_name = serializers.ReadOnlyField(source='city.name')
+    #city_name = serializers.ReadOnlyField(source='city.name')
     bodycolor_name = serializers.ReadOnlyField(source='bodycolor.name')
     bodytype_name = serializers.ReadOnlyField(source='bodytype.name')
     transmission_name = serializers.ReadOnlyField(source='transmission.name')
     enginetype_name = serializers.ReadOnlyField(source='enginetype.name')
-    registration_city_name = serializers.ReadOnlyField(
-        source='registration_city.name')
+    # registration_city_name = serializers.ReadOnlyField(
+    #     source='registration_city.name')
     location_name = serializers.ReadOnlyField(source='location.name')
 
-    condition = serializers.CharField(source='get_condition_display')
-    images = ImageSerializer(required=False, many=True)
+    condition = serializers.ReadOnlyField(source='get_condition_display')
+    images = ImageSerializer(read_only=True, required=False, many=True)
     #feature = CarFeatureSerializer(required=False, many=True)
     carfeatures = CarFeatureSerializer(
-        source='car_features', many=True, read_only=True)
+        source='car_features', many=True, read_only=True, required=False)
     #registration_city = serializers.CharField(source='registration_city.name')
     #features = serializers.ManyRelatedField(source='features.name')
 
@@ -172,16 +172,24 @@ class CarSerializer(serializers.ModelSerializer):
                   'version', 'version_name',
                   'model', 'model_name',
                   'make', 'make_name',
-                  'city', 'city_name',
+                  # 'city',
+                  # 'city_name',
                   'bodycolor', 'bodycolor_name',
                   'bodytype', 'bodytype_name',
                   'transmission', 'transmission_name',
                   'enginetype', 'enginetype_name', 'engine_capacity',
-                  'registration_city', 'registration_city_name',
+                  #'registration_city', 'registration_city_name',
                   'location', 'location_name',
                   'mileage', 'condition',
                   'is_featured', 'is_verified', 'is_with_driver_only', 'is_imported',
-                  'carfeatures', 'images',
-                  'date_added'
+                  'carfeatures',
+                  'images',
                   )
         #fields = '__all__'
+
+    # def create(self, validated_data):
+    #     tracks_data = validated_data.pop('tracks')
+    #     album = Album.objects.create(**validated_data)
+    #     for track_data in tracks_data:
+    #         Track.objects.create(album=album, **track_data)
+    #     return album
