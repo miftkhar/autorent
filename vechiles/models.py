@@ -272,10 +272,11 @@ class Car(models.Model):
         City, on_delete=models.PROTECT, related_name='carCity', default=1)
     location = models.ForeignKey(
         'Location', on_delete=models.PROTECT, blank=True, null=True)
-    features = models.ManyToManyField( Feature, related_name='featuring', through='CarFeature' )
+    features = models.ManyToManyField(
+        Feature, related_name='featuring', through='CarFeature')
     title = models.CharField(max_length=500, blank=False)
     description = models.TextField(blank=True)
-    price = models.IntegerField(blank=False, null=True)
+    price = models.IntegerField(blank=False, null=False)
     mileage = models.IntegerField(blank=True, null=True)
     condition = models.IntegerField(
         'condition', choices=CONDITION_CHOICES, default=VERY_GOOD)

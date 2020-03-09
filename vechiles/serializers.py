@@ -174,6 +174,7 @@ class CarSerializer(serializers.ModelSerializer):
                   'make', 'make_name',
                   # 'city',
                   # 'city_name',
+                  'price',
                   'bodycolor', 'bodycolor_name',
                   'bodytype', 'bodytype_name',
                   'transmission', 'transmission_name',
