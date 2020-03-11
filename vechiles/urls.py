@@ -16,6 +16,8 @@ urlpatterns = [
     path('version/', views.VersionListView.as_view()),
     path('bodytype/', views.BodyTypeListView.as_view()),
     path('bodycolor/', views.BodyColorListView.as_view()),
+    path('enginetype/', views.EngineTypeListView.as_view()),
+    path('transmission/', views.TransmissionListView.as_view()),
     path('feature/', views.FeatureListView.as_view()),
     path('carfeature/', views.CarFeatureListView.as_view()),
     path('user-car/', views.UserCarListView.as_view(), name='user-car'),

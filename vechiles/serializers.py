@@ -5,14 +5,14 @@ from . import models
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Country
-        fields = ('name',)
+        fields = ('id', 'name',)
         #fields = '__all__'
 
 
 class StateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.State
-        fields = ('name',)
+        fields = ('id', 'name',)
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -40,40 +40,40 @@ class CitySerializer(serializers.ModelSerializer):
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Location
-        fields = ('name', 'city', )
+        fields = ('id', 'name', 'city', )
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
-        fields = ('name',)
+        fields = ('id', 'name',)
 
 
 class BodyTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BodyType
-        fields = ('name', 'description')
+        fields = ('id', 'name', 'description')
 
 
 class BodyColorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.BodyColor
-        fields = ('name', 'rgbhex')
+        fields = ('id', 'name', 'rgbhex')
 
 
 class EngineTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.EngineType
-        fields = ('name',)
+        fields = ('id', 'name',)
 
 
 class TransmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Transmission
-        fields = ('name',)
+        fields = ('id', 'name',)
 
 
 class MakeSerializer(serializers.ModelSerializer):
