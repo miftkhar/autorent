@@ -469,18 +469,18 @@ class UserCarImageListView(generics.ListCreateAPIView):
         qs = models.Image.objects.filter(car=car_id)
         return qs
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(
-            data=request.data, many=isinstance(request.data, list))
-        query_dict = request.data
-        for key, value in dict(query_dict).items():  # ---> dict(query_dict)
-            print(key, value)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        results = models.Image.objects.all()
-        output_serializer = serializers.ImageSerializer(results, many=True)
-        data = output_serializer.data[:]
-        return Response(data)
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(
+    #         data=request.data, many=isinstance(request.data, list))
+    #     query_dict = request.data
+    #     for key, value in dict(query_dict).items():  # ---> dict(query_dict)
+    #         print(key, value)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     results = models.Image.objects.all()
+    #     output_serializer = serializers.ImageSerializer(results, many=True)
+    #     data = output_serializer.data[:]
+    #     return Response(data)
 
 
 class StateAutocomplete(autocomplete.Select2QuerySetView):
