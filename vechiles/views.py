@@ -2,6 +2,7 @@
 
 from django.urls import reverse, resolve
 from rest_framework import generics
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.db import connection
@@ -343,7 +344,13 @@ class VersionListView(generics.ListCreateAPIView):
 
 class CarDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.CarSerializer
-    queryset = models.Car.objects.all()
+
+    def get_queryset(self):
+        queryset = models.Car.objects.select_related(
+            'version', 'model', 'make', 'bodycolor',
+            'bodytype', 'transmission', 'enginetype', 'registration_city',
+            'city', 'location',).prefetch_related('images', 'car_features',).all()
+        return queryset
 
 
 class CarListView(generics.ListCreateAPIView):
@@ -425,6 +432,20 @@ class UserCarListView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
+class UserCarDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.CarSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = models.Car.objects.select_related(
+            'version', 'model', 'make', 'bodycolor',
+            'bodytype', 'transmission', 'enginetype', 'registration_city',
+            'city', 'location',).prefetch_related('images', 'car_features',).all()
+        queryset = models.Car.objects.filter(user=user)
+        return queryset
+
+
 class UserCarFeatureListView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.CarFeatureSerializer
     permission_classes = (IsAuthenticated,)
@@ -436,8 +457,10 @@ class UserCarFeatureListView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserCarImageListView(generics.ListCreateAPIView):
-    serializer_class = serializers.ImageSerializer
+    # parser_classes = (MultiPartParser, FormParser)
+    queryset = models.Image.objects.none()
     permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.ImageSerializer
 
     def get_queryset(self):
         user = self.request.user
@@ -445,6 +468,19 @@ class UserCarImageListView(generics.ListCreateAPIView):
         qs = models.Image.objects.filter(car__user=user)
         qs = models.Image.objects.filter(car=car_id)
         return qs
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(
+            data=request.data, many=isinstance(request.data, list))
+        query_dict = request.data
+        for key, value in dict(query_dict).items():  # ---> dict(query_dict)
+            print(key, value)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        results = models.Image.objects.all()
+        output_serializer = serializers.ImageSerializer(results, many=True)
+        data = output_serializer.data[:]
+        return Response(data)
 
 
 class StateAutocomplete(autocomplete.Select2QuerySetView):

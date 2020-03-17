@@ -126,11 +126,18 @@ class VModelSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'make', 'make_name', 'is_popular', 'total_car')
 
 
+class ImageListSerializer(serializers.ListSerializer):
+    def create(self, validated_data):
+        Images = [models.Image(**item) for item in validated_data]
+        return models.Image.objects.bulk_create(Images)
+
+
 class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
         fields = ('id', 'car', 'title', 'image_file',)
+        #list_serializer_class = ImageListSerializer
 
 
 class CarFeatureSerializer(serializers.ModelSerializer):

@@ -332,7 +332,7 @@ class Image(models.Model):
 class CarFeature(models.Model):
     id = models.AutoField(primary_key=True)
     car = models.ForeignKey(
-        Car, db_index=False, on_delete=models.PROTECT, related_name='car_features')
+        Car, db_index=False, on_delete=models.CASCADE, related_name='car_features')
     feature = models.ForeignKey(
         Feature, db_index=False, on_delete=models.PROTECT)
     date_added = models.DateField(default=datetime.now)

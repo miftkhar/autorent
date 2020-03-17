@@ -21,6 +21,7 @@ urlpatterns = [
     path('feature/', views.FeatureListView.as_view()),
     path('carfeature/', views.CarFeatureListView.as_view()),
     path('user-car/', views.UserCarListView.as_view(), name='user-car'),
+    path('user-car/<int:pk>', views.UserCarDetailView.as_view(), name='user-car'),
     path('user-car-image/', views.UserCarImageListView.as_view(),
          name='user-car-image'),
     path('user-car-feature/<int:pk>/', views.UserCarFeatureListView.as_view(),
