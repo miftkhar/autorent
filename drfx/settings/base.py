@@ -35,8 +35,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 INSTALLED_APPS = [
 
     # 'adminlteui',
-    # 'cruds',
-
+    # # 'cruds',
     # 'crispy_forms',
     # 'django_select2',
     # 'easy_thumbnails',
@@ -79,7 +78,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'csp.middleware.CSPMiddleware',
+    'csp.middleware.CSPMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -90,14 +89,14 @@ MIDDLEWARE = [
 
 ]
 
-#CSP_EXCLUDE_URL_PREFIXES = ("'self'",)
-# CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", "http://*",)
-# CSP_STYLE_SRC = ("'self'", "http://*", "'unsafe-inline'",)
-# CSP_SCRIPT_SRC = ("'self'", "http://*", "'unsafe-inline'", "'unsafe-eval'",)
-# CSP_IMG_SRC = ("'self'",)
-# CSP_FONT_SRC = ("'self'",)
-# CSP_CONNECT_SRC = ("'self'",)
-# CSP_WORKER_SRC = ("'self'",)
+CSP_EXCLUDE_URL_PREFIXES = ("'self'",)
+CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'",)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'",)
+CSP_IMG_SRC = ("'self'",)
+CSP_FONT_SRC = ("'self'",)
+CSP_CONNECT_SRC = ("'self'",)
+CSP_WORKER_SRC = ("'self'",)
 
 
 ROOT_URLCONF = 'drfx.urls'
@@ -152,7 +151,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_EMAIL_FIELD = 'email'
 ACCOUNT_LOGOUT_ON_GET = True
-
+OLD_PASSWORD_FIELD_ENABLED = True
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_AUTH_SERIALIZERS = {
@@ -173,7 +172,7 @@ REST_FRAMEWORK = {
     #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
