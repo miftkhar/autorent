@@ -1,2 +1,2 @@
 # autorent
-This is back end for autorent.pk in Django framwork
+This is back end for autorent in Django framwork
